@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Load Bootstrap CSS -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    
+    <title>Qonun buzilishi</title>
+</head>
+<body>
+  
+  <div class="row justify-content-center">
+    <div class="col-md-10">
+      <div class="row align-items-center">
+        <div class="col-lg-7 mb-5 mb-lg-0">
+          
+          <!-- Form Heading -->
+          <br><br><br><br>
+          <form class="border-right pr-5 mb-5" method="POST" id="contactForm" name="contactForm">
+            {% csrf_token %}
+            <div class="row">
+              <div class="col-md-6 form-group">
+                <input type="text" class="form-control" name="fname" id="fname" placeholder="Ismingiz" required>
+              </div>
+              <div class="col-md-6 form-group">
+                <input type="text" class="form-control" name="lname" id="lname" placeholder="Familiyangiz" required>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12 form-group">
+                <input type="text" class="form-control" name="tel" id="tel" placeholder="Telefon raqamingiz" required>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12 form-group">
+                <select name="city" id="city" class="form-control" required>
+
+                    <option value="">-- Huquq buzilish yuz bergan joy  --</option>
+                    <option value="Samarqand Shahri">Samarqand Shahri</option>
+                     <option value="Samarqand tumani">Samarqand tumani</option>
+                       <option value="Toyloq tumani">Toyloq tumani</option>
+                      <option value="Bulung'ur tumani">Bulung'ur tumani</option>
+                      <option value="Jomboy tumani">Jomboy tumani</option>
+                      <option value="Oqdaryo tumani">Oqdaryo tumani</option>
+                      <option value="Ishtixon tumani">Ishtixon tumani</option>
+                       <option value="Payariq tumani">Payariq tumani</option>
+                      <option value="Qo'shrabot tumani">Qo'shrabot tumani</option>
+                      <option value="Kattaqo'rg'on tumani">Kattaqo'rg'on tumani</option>
+                      <option value="Narpay tumani">Narpay tumani</option>
+                      <option value="Paxtachi tumani">Paxtachi tumani</option>
+                       <option value="Pastdarg'om tumani">Pastdarg'om tumani</option>
+                      <option value="Kattaqo'rg'on shahri">Kattaqo'rg'on shahri</option>
+                      <option value="Nurobod tumani">Nurobod tumani</option>
+                  <!-- Add all other options here -->
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12 form-group">
+                <textarea class="form-control" name="messagek" id="messagek" cols="30" rows="7" placeholder="Huquq buzilish xolatini yozib yuboring!" required></textarea>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <input type="submit" class="btn btn-primary rounded-0 py-2 px-4" value="Submit">
+              </div>
+            </div>
+        </div>
+          </form>
+        <div class="col-lg-4 ml-auto">
+          <h4 class="mb-4">SAMARQAND VILOYATI ADLIYA BOSHQARMASI</h4>
+          <p><img src="{% static 'imj/1.jpg' %}" style="width:350px;"></p>
+        </div>
+      </div>
+    </div>  
+  </div>
+
+  <!-- Load Bootstrap JS -->
+  <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+  
+  <!-- Optional: Include jQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+</body>
+</html>

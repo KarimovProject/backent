@@ -1,0 +1,450 @@
+.bd-placeholder-img {
+  font-size: 1.125rem;
+  text-anchor: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+@media (min-width: 768px) {
+  .bd-placeholder-img-lg {
+    font-size: 3.5rem;
+  }
+}
+
+.b-example-divider {
+  width: 100%;
+  height: 3rem;
+  background-color: rgba(0, 0, 0, .1);
+  border: solid rgba(0, 0, 0, .15);
+  border-width: 1px 0;
+  box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+}
+
+.b-example-vr {
+  flex-shrink: 0;
+  width: 1.5rem;
+  height: 100vh;
+}
+
+.bi {
+  vertical-align: -.125em;
+  fill: currentColor;
+}
+
+.nav-scroller {
+  position: relative;
+  z-index: 2;
+  height: 2.75rem;
+  overflow-y: hidden;
+}
+
+.nav-scroller .nav {
+  display: flex;
+  flex-wrap: nowrap;
+  padding-bottom: 1rem;
+  margin-top: -1px;
+  overflow-x: auto;
+  text-align: center;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+}
+
+.btn-bd-primary {
+  --bd-violet-bg: #712cf9;
+  --bd-violet-rgb: 112.520718, 44.062154, 249.437846;
+
+  --bs-btn-font-weight: 600;
+  --bs-btn-color: var(--bs-white);
+  --bs-btn-bg: var(--bd-violet-bg);
+  --bs-btn-border-color: var(--bd-violet-bg);
+  --bs-btn-hover-color: var(--bs-white);
+  --bs-btn-hover-bg: #6528e0;
+  --bs-btn-hover-border-color: #6528e0;
+  --bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
+  --bs-btn-active-color: var(--bs-btn-hover-color);
+  --bs-btn-active-bg: #5a23c8;
+  --bs-btn-active-border-color: #5a23c8;
+}
+
+.bd-mode-toggle {
+  z-index: 1500;
+}
+
+.bd-mode-toggle .dropdown-menu .active .bi {
+  display: block !important;
+}
+.btn-link.nav-link {
+  padding: 0;
+  margin: 0;
+  color: #0d6efd;
+  font-weight: 400;
+  background-color: transparent;
+  border: none;
+}
+
+.btn-link.nav-link:hover {
+  color: #0a58ca;
+  text-decoration: underline;
+}
+
+.slide-item {
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  height: 600px;
+}
+
+.theme-btn {
+  background: #ff6600;
+  padding: 10px 20px;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.owl-carousel .owl-item {
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.owl-carousel .owl-item.fadeOut {
+  opacity: 1;
+  -webkit-animation: fadeOut 2s;
+  animation: fadeOut 2s;
+}
+
+.owl-carousel .owl-item.fadeIn {
+  opacity: 0;
+  -webkit-animation: fadeIn 2s;
+  animation: fadeIn 2s;
+}
+
+@-webkit-keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+
+.banner-section-two .slide-item .content-box{
+	position: relative;
+	height: 100vh;
+	width: 100%;
+	display: table;
+	vertical-align: middle;
+}
+
+
+
+.banner-section-two .slide-item .content{
+	position: relative;
+	display: table-cell;
+	vertical-align: middle;
+	z-index: 9;
+}
+
+
+
+
+.banner-section-two .slide-item h2{
+	position: relative;
+	display: block;
+	font-size: 64px;
+	line-height: 1.2em;
+	color: #ffffff;
+	font-weight: 600;
+	margin-bottom: 25px;
+	opacity: 0;
+	font-family: "Oswald", sans-serif;
+	text-transform: uppercase;
+	-webkit-transform: translateY(-100px);
+	-moz-transform: translateY(-100px);
+	-ms-transform: translateY(-100px);
+	-o-transform: translateY(-100px);
+	transform: translateY(-100px);
+	-webkit-transition: all 500ms ease;
+	-moz-transition: all 500ms ease;
+	-ms-transition: all 500ms ease;
+	-o-transition: all 500ms ease;
+	transition: all 500ms ease;
+}
+
+.banner-section-two .active h2{
+	opacity: 1;
+	-webkit-transform: translateY(0);
+	-moz-transform: translateY(0);
+	-ms-transform: translateY(0);
+	-o-transform: translateY(0);
+	transform: translateY(0);
+	-webkit-transition-delay: 500ms;
+	-moz-transition-delay: 500ms;
+	-ms-transition-delay: 500ms;
+	-o-transition-delay: 500ms;
+	transition-delay: 500ms;
+	padding-left: 80px;
+	color: yellow;
+}
+
+
+
+
+
+.banner-section-two .slide-item .btn-box{
+	opacity: 0;
+	-webkit-transform: translateY(-50px);
+	-moz-transform: translateY(-50px);
+	-ms-transform: translateY(-50px);
+	-o-transform: translateY(-50px);
+	transform: translateY(-50px);
+	-webkit-transition: all 500ms ease;
+	-moz-transition: all 500ms ease;
+	-ms-transition: all 500ms ease;
+	-o-transition: all 500ms ease;
+	transition: all 500ms ease;
+	padding-left: 100px;
+}
+
+
+.banner-section-two .active .btn-box{
+	opacity: 1;
+	-webkit-transform: translateY(0);
+	-moz-transform: translateY(0);
+	-ms-transform: translateY(0);
+	-o-transform: translateY(0);
+	transform: translateY(0);
+	-webkit-transition-delay: 1000ms;
+	-moz-transition-delay: 1000ms;
+	-ms-transition-delay: 1000ms;
+	-o-transition-delay: 1000ms;
+	transition-delay: 1000ms;
+	display: inline-block;
+	font-size: 20px;
+	line-height: 1.2em;
+}
+
+
+
+
+.social-new {
+  position: fixed;
+  top: 180px;
+  z-index: 999;
+  left: 0px;  
+}
+.social-new ul {
+  padding: 0px;
+  transform: translate(-270px, 0);
+}
+.social-new ul li {
+  display: block;
+  margin: 5px;
+  background: rgba(0, 0, 0, 0.36);
+  width: 300px;
+  text-align: right;
+  padding: 10px;
+  border-radius: 0 30px 30px 0;
+  transition: all 1s;
+}
+.social-new ul li:hover {
+  transform: translate(110px, 0);
+  background: rgba(8, 72, 211, 0.4);
+}
+.social-new ul li a {
+  color: #000;
+  display: block;
+  text-decoration: none;
+  transition: all 1s;
+  font-size:  larger;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.social-new ul li span {
+  border-radius: 50%;
+  background: #fff;
+  text-align: center;
+}
+
+.about-section{
+  position: static;
+  height: 650px;
+  padding: 0px 15px;
+  margin: 0 auto;
+}
+
+.about-section .image-column{
+  position: relative;
+  margin-bottom: 40px;
+  border-radius: 50%;
+}
+/* sidenav-bar */
+
+
+
+.image-column .inner-column:before{
+	position: absolute;
+	top: 20px;
+	left: 0;
+	right: 0;
+	margin: 0 auto;
+	height: 600px;
+	width: 400px;
+	border: 20px solid #ffbc00;
+	content: "";
+	transform: translateX(50px);
+}
+
+.image-column .image{
+	position: relative;
+	z-index: 9;
+	
+	padding: 10px;
+	margin-bottom: 0;
+	text-align: center;
+}
+
+.inner-column .text-box{
+	position: relative;
+	padding: 40px 40px 40px;
+	border-bottom: 5px solid #ffbc00;
+	border-radius: 10px 10px 30px 30px;
+	box-shadow: 0 0 30px rgba(0,0,0,0.50);
+	width: 800px;
+	height: 500px;
+}
+
+.p-3{
+	position: absolute;
+	height: 40px;
+	margin: 0 auto;
+}
+
+
+
+.table thead th {
+	border: 1px solid;
+	background-color: var(--table-header-bg, rgb(57, 60, 65));
+}
+
+@media (prefers-color-scheme: dark) {
+	.table thead th {
+		--table-header-bg: rgb(169, 169, 169);
+		/* color: white; */
+	}
+}
+
+
+
+/* Yangiliklar */
+.bd-placeholder-img {
+  font-size: 1.125rem;
+  text-anchor: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+@media (min-width: 768px) {
+  .bd-placeholder-img-lg {
+    font-size: 3.5rem;
+  }
+}
+
+.b-example-divider {
+  width: 100%;
+  height: 3rem;
+  background-color: rgba(0, 0, 0, .1);
+  border: solid rgba(0, 0, 0, .15);
+  border-width: 1px 0;
+  box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+}
+
+.b-example-vr {
+  flex-shrink: 0;
+  width: 1.5rem;
+  height: 100vh;
+}
+
+.bi {
+  vertical-align: -.125em;
+  fill: currentColor;
+}
+
+.nav-scroller {
+  position: relative;
+  z-index: 2;
+  height: 2.75rem;
+  overflow-y: hidden;
+}
+
+.nav-scroller .nav {
+  display: flex;
+  flex-wrap: nowrap;
+  padding-bottom: 1rem;
+  margin-top: -1px;
+  overflow-x: auto;
+  text-align: center;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+}
+
+.btn-bd-primary {
+  --bd-violet-bg: #712cf9;
+  --bd-violet-rgb: 112.520718, 44.062154, 249.437846;
+
+  --bs-btn-font-weight: 600;
+  --bs-btn-color: var(--bs-white);
+  --bs-btn-bg: var(--bd-violet-bg);
+  --bs-btn-border-color: var(--bd-violet-bg);
+  --bs-btn-hover-color: var(--bs-white);
+  --bs-btn-hover-bg: #6528e0;
+  --bs-btn-hover-border-color: #6528e0;
+  --bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
+  --bs-btn-active-color: var(--bs-btn-hover-color);
+  --bs-btn-active-bg: #5a23c8;
+  --bs-btn-active-border-color: #5a23c8;
+}
+
+.bd-mode-toggle {
+  z-index: 1500;
+}
+
+.bd-mode-toggle .dropdown-menu .active .bi {
+  display: block !important;
+}
