@@ -1,0 +1,295 @@
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            scroll-behavior: smooth;
+        }
+        .header-bg {
+            background-color: #343a40;
+            color: #fff;
+            border-bottom: 4px solid #007bff;
+        }
+        .footer-bg {
+            background-color: #343a40;
+            color: #fff;
+        }
+        .header-content, .footer-content {
+            padding: 20px;
+        }
+        .btn-view {
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 16px;
+            font-size: 14px;
+            text-decoration: none;
+            text-align: center;
+            display: inline-block;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .btn-view:hover {
+            background-color: #0056b3;
+        }
+        .pagination .page-item.active .page-link {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        .pagination .page-link {
+            border-radius: 0;
+        }
+       .btn-logout {
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #dc3545;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-flex; /* Flex konteyneri qilish */
+    align-items: center; /* Vertikal markazlashtirish */
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.btn-logout i {
+    margin-right: 8px; /* Ikona va matn orasiga bo'shliq qo'shish */
+    font-size: 18px; /* Ikonaning o'lchamini sozlash */
+}
+
+.btn-logout:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
+    transform: scale(1.05);
+}
+
+.btn-logout:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(220, 53, 69, 0.5);
+}
+
+        .notification-bell {
+            position: relative;
+        }
+        .notification-bell .badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background-color: red;
+            color: white;
+            border-radius: 50%;
+            padding: 5px 10px;
+            font-size: 12px;
+        }
+        .card {
+            border: none;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+        }
+        .card-body {
+            padding: 1.5rem;
+        }
+        .card-title {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+        .card-text {
+            font-size: 1rem;
+        }
+        .card-link {
+            text-decoration: none;
+        }
+        .card-reviewed {
+            border-left: 5px solid green;
+            background-color: #d4edda;
+        }
+        .card-pending {
+            border-left: 5px solid red;
+            background-color: #f8d7da;
+        }
+        .modal-confirm {
+            display: none; 
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+            padding-top: 60px;
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+        .modal-confirm .btn {
+            margin: 5px;
+        }
+    </style>
+    <script>
+        function confirmReview(event) {
+            event.preventDefault(); // Formaning standart yuborilishini to'xtatish
+            var form = event.target.form; // Formani olish
+            var id = form.querySelector('input[name="id"]').value; // Formadagi id qiymatini olish
+            var modal = document.getElementById('confirmationModal');
+            var modalOk = document.getElementById('modalOk');
+            var modalCancel = document.getElementById('modalCancel');
+
+            modal.style.display = 'block'; // Modalni ko'rsatish
+
+            modalOk.onclick = function() {
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "", true); // Hoziroq django faylini chaqiradi
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhr.onload = function () {
+                    if (xhr.status === 200) {
+                        var response = JSON.parse(xhr.responseText);
+                        if (response.status === 'success') {
+                            location.reload(); // Sahifani qayta yuklash
+                        } else {
+                            alert("Xatolik: " + response.message);
+                        }
+                    }
+                };
+                xhr.send("mark_reviewed=true&id=" + id);
+            };
+
+            modalCancel.onclick = function() {
+                modal.style.display = 'none'; // Modalni yopish
+            };
+
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = 'none'; // Modalni yopish
+                }
+            };
+        }
+    </script>
+    <title>Ma'lumotlar Ro'yxati</title>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header-bg">
+        <div class="container d-flex justify-content-between align-items-center header-content">
+            <h1 class="mb-0">Ma'lumotlar Ro'yxati</h1>
+       
+            <div class="notification-bell">
+                <a href="#" class="btn btn-light">
+                    <i class="fa fa-bell"></i>
+                                            <span class="badge">3</span>
+                                    </a>
+            </div>
+           
+
+              
+               
+      
+        </div>
+
+      
+
+    </header>
+
+    <div class="container mt-5">
+        <!-- Search form -->
+        <form method="get" action="/home.php" class="mb-4">
+            <div class="row">
+                <div class="col-md-1">
+                    <input type="text" name="search_name" class="form-control" placeholder="Ism" value="">
+                </div>
+                <div class="col-md-1">
+                    <input type="text" name="search_surname" class="form-control" placeholder="Familiya" value="">
+                </div>
+                <div class="col-md-2">
+                    <input type="text" name="search_place" class="form-control" placeholder="Shahar" value="">
+                </div>
+                <div class="col-md-2">
+                    <input type="text" name="search_phone" class="form-control" placeholder="Telefon" value="">
+                </div>
+                <div class="col-md-2">
+                    <input type="text" name="search_comment" class="form-control" placeholder="Izoh" value="">
+                </div>
+                <div class="col-md-2">
+                    <select name="filter_telegram_id" class="form-control">
+                        <option value="">Barchasi</option>
+                        <option value="1" >Ko'rilmagan</option>
+                        <option value="0" >Ko'rilgan</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-primary btn-block" type="submit">Qidirish</button>
+                </div>
+            </div>
+        </form>
+                  <a href="logout.php" class="btn-logout">
+    <i class="fas fa-sign-out-alt"></i> Chiqish
+</a><br>
+<br>
+
+        
+        <div class="row">
+            {%for i in l%}
+            <div class="col-md-12 mb-4">
+                <div class="card card-reviewed">
+                    <div class="card-body">
+                        <h5 class="card-title">{{i.fname}} {{i.lname}}</h5>
+                        <p class="card-text">
+                            <strong>Shahar:</strong> {{i.city}}<br>
+                            <strong>Telefon:</strong> {{i.tel}}<br>
+                            <strong>Izoh:</strong> {{i.messagek}}</p>
+                            <a href="uploads/diagonal-facebook-hd-art-ukgo17dkjd7bcubj.jpg" target="_blank" class="btn btn-secondary">Faylni ko'rish</a>
+                <a href="uploads/ariza_1724825050.pdf" class="btn btn-primary">Arizani ko'rish</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+        <!-- Pagination -->
+        <nav>
+            <ul class="pagination">
+                
+                                    <li class="page-item active"><a class="page-link" href="?page=1">1</a></li>
+                
+                            </ul>
+        </nav>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer-bg">
+        <div class="container text-center footer-content">
+            <p class="mb-0">&copy; 2024 Sizning Saytingiz. Barcha huquqlar himoyalangan.</p>
+            <p><a href="contact.php" class="text-light">Aloqa</a> | <a href="about.php" class="text-light">Biz haqimizda</a></p>
+        </div>
+    </footer>
+
+    <!-- Modal -->
+    <div id="confirmationModal" class="modal-confirm">
+        <div class="modal-content">
+            <h4>Murajaatni ko'rib chiqishni tasdiqlang</h4>
+            <p>Ushbu amali qaytarmas tarzda bajariladi. Davom etmoqchimisiz?</p>
+            <button id="modalOk" class="btn btn-success">Ha</button>
+            <button id="modalCancel" class="btn btn-danger">Yo'q</button>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+{% endblock %}
