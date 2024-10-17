@@ -448,3 +448,44 @@
 .bd-mode-toggle .dropdown-menu .active .bi {
   display: block !important;
 }
+/* Custom label styling */
+.custom-label {
+  font-weight: bold;
+  color: #343a40; /* Darker text color */
+}
+
+/* Custom file input container */
+.custom-file-styled .custom-file-label {
+  background-color: #007bff; /* Blue background */
+  color: white;              /* White text */
+  border-radius: 5px;         /* Rounded corners */
+  padding: 10px;
+  border: 2px solid #007bff;  /* Border matching the background */
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Hover effect for file input */
+.custom-file-styled .custom-file-input:hover ~ .custom-file-label {
+  background-color: #0056b3;  /* Darker blue on hover */
+  border-color: #0056b3;      /* Matching border */
+}
+
+/* Focus effect for file input (when it's active) */
+.custom-file-styled .custom-file-input:focus ~ .custom-file-label {
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Blue glow */
+  outline: none; /* Remove the default outline */
+}
+
+/* Customizing the file input (hiding it but keeping it functional) */
+.custom-file-input {
+  visibility: hidden;
+  position: absolute;
+}
+
+/* Display the file name dynamically after selection */
+.custom-file-label::after {
+  content: " Fayl tanlandi";
+  padding-left: 10px;
+  font-style: italic;
+  font-size: 14px;
+}

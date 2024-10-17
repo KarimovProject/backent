@@ -236,29 +236,43 @@
                 </div>
             </div>
         </form>
-                  <a href="logout.php" class="btn-logout">
-    <i class="fas fa-sign-out-alt"></i> Chiqish
-</a><br>
+        {% if user.is_authenticated %}
+        <form method="post" action="{% url 'login' %}">
+          {% csrf_token %}
+          <button class="btn btn-outline-success" type="submit">Chiqish</button>
+        </form>
+
+        {% else %}
+        <form method="post" action="{% url 'login' %}">
+          {% csrf_token %}
+          <button class="btn btn-outline-success" type="submit">Kirish</button>
+        </form>
+
+        {% endif %}<br>
 <br>
 
         
-        <div class="row">
-            {%for i in l%}
-            <div class="col-md-12 mb-4">
-                <div class="card card-reviewed">
-                    <div class="card-body">
-                        <h5 class="card-title">{{i.fname}} {{i.lname}}</h5>
-                        <p class="card-text">
-                            <strong>Shahar:</strong> {{i.city}}<br>
-                            <strong>Telefon:</strong> {{i.tel}}<br>
-                            <strong>Izoh:</strong> {{i.messagek}}</p>
-                            <a href="uploads/diagonal-facebook-hd-art-ukgo17dkjd7bcubj.jpg" target="_blank" class="btn btn-secondary">Faylni ko'rish</a>
-                <a href="uploads/ariza_1724825050.pdf" class="btn btn-primary">Arizani ko'rish</a>
-                            </div>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
+<div class="row">
+    {% for i in l %}
+    <div class="col-md-12 mb-4">
+        <div class="card card-reviewed">
+            <div class="card-body">
+                <h5 class="card-title">{{ i.fname }} {{ i.lname }}</h5>
+                <p class="card-text">
+                    <strong>Shahar:</strong> {{ i.city }}<br>
+                    <strong>Telefon:</strong> {{ i.tel }}<br>
+                    <strong>Izoh:</strong> {{ i.messagek }}<br>
+                </p>
+                {% if i.file %}
+                    <a href="{{ i.file.url }}" class="btn btn-primary">Faylni ko'rish</a>
+                {% endif %}
+                <a href="{{ i.file }}" class="btn btn-primary">Arizani ko'rish</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
 
         <!-- Pagination -->
         <nav>

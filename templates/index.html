@@ -12,15 +12,20 @@
     <title>Qonun buzilishi</title>
 </head>
 <body>
-  
-  <div class="row justify-content-center">
+
+  <!-- Xabar sahifaning yuqorisida joylashgan -->
+  <div id="successMessage" class="alert alert-success text-center" style="display:none; position: fixed; top: 0; left: 0; width: 100%; z-index: 9999;">
+    Arizangiz yuborildi!
+  </div>
+
+  <div class="row justify-content-center" style="margin-top: 60px;"> <!-- Bu divning tepa chetini pastga surish -->
     <div class="col-md-10">
       <div class="row align-items-center">
         <div class="col-lg-7 mb-5 mb-lg-0">
           
           <!-- Form Heading -->
           <br><br><br><br>
-          <form class="border-right pr-5 mb-5" form method="POST" id="contactForm" name="contactForm">
+          <form class="border-right pr-5 mb-5" method="POST" enctype="multipart/form-data" id="contactForm" name="contactForm">
             {% csrf_token %}
             <div class="row">
               <div class="col-md-6 form-group">
@@ -38,39 +43,50 @@
             <div class="row">
               <div class="col-md-12 form-group">
                 <select name="city" id="city" class="form-control" required>
-
-                    <option value="">-- Huquq buzilish yuz bergan joy  --</option>
+                    <option value="">-- Huquq buzilish yuz bergan joy --</option>
                     <option value="Samarqand Shahri">Samarqand Shahri</option>
-                     <option value="Samarqand tumani">Samarqand tumani</option>
-                       <option value="Toyloq tumani">Toyloq tumani</option>
-                      <option value="Bulung'ur tumani">Bulung'ur tumani</option>
-                      <option value="Jomboy tumani">Jomboy tumani</option>
-                      <option value="Oqdaryo tumani">Oqdaryo tumani</option>
-                      <option value="Ishtixon tumani">Ishtixon tumani</option>
-                       <option value="Payariq tumani">Payariq tumani</option>
-                      <option value="Qo'shrabot tumani">Qo'shrabot tumani</option>
-                      <option value="Kattaqo'rg'on tumani">Kattaqo'rg'on tumani</option>
-                      <option value="Narpay tumani">Narpay tumani</option>
-                      <option value="Paxtachi tumani">Paxtachi tumani</option>
-                       <option value="Pastdarg'om tumani">Pastdarg'om tumani</option>
-                      <option value="Kattaqo'rg'on shahri">Kattaqo'rg'on shahri</option>
-                      <option value="Nurobod tumani">Nurobod tumani</option>
-                  <!-- Add all other options here -->
+                    <option value="Samarqand tumani">Samarqand tumani</option>
+                    <option value="Toyloq tumani">Toyloq tumani</option>
+                    <option value="Bulung'ur tumani">Bulung'ur tumani</option>
+                    <option value="Jomboy tumani">Jomboy tumani</option>
+                    <option value="Oqdaryo tumani">Oqdaryo tumani</option>
+                    <option value="Ishtixon tumani">Ishtixon tumani</option>
+                    <option value="Payariq tumani">Payariq tumani</option>
+                    <option value="Qo'shrabot tumani">Qo'shrabot tumani</option>
+                    <option value="Kattaqo'rg'on tumani">Kattaqo'rg'on tumani</option>
+                    <option value="Narpay tumani">Narpay tumani</option>
+                    <option value="Paxtachi tumani">Paxtachi tumani</option>
+                    <option value="Pastdarg'om tumani">Pastdarg'om tumani</option>
+                    <option value="Kattaqo'rg'on shahri">Kattaqo'rg'on shahri</option>
+                    <option value="Nurobod tumani">Nurobod tumani</option>
                 </select>
               </div>
             </div>
+            <br>
+            <div class="row">
+              <div class="col-md-12 form-group">
+                <label for="file" class="form-label">Faylni yuklang:</label>
+                <div class="custom-file">
+                  <input type="file" class="custom-file-input" name="file" id="file" accept=".jpg,.png,.pdf,.docx" required>
+                  <label class="custom-file-label" for="file">Faylni tanlang...</label>
+                </div>
+                <small class="form-text text-muted">Faqat .jpg, .png, .pdf, yoki .docx formatdagi fayllar yuklanishi mumkin.</small>
+              </div>
+            </div>
+            <br>
             <div class="row">
               <div class="col-md-12 form-group">
                 <textarea class="form-control" name="messagek" id="messagek" cols="30" rows="7" placeholder="Huquq buzilish xolatini yozib yuboring!" required></textarea>
               </div>
             </div>
+            <br>
             <div class="row">
               <div class="col-md-12">
                 <input type="submit" class="btn btn-primary rounded-0 py-2 px-4" value="Submit">
               </div>
             </div>
-        </div>
           </form>
+        </div>
         <div class="col-lg-4 ml-auto">
           <h4 class="mb-4">SAMARQAND VILOYATI ADLIYA BOSHQARMASI</h4>
           <p><img src="{% static 'imj/1.jpg' %}" style="width:350px;"></p>
@@ -84,6 +100,23 @@
   
   <!-- Optional: Include jQuery -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  
+  <!-- Custom JavaScript to handle form submit -->
+  <script>
+    document.getElementById('contactForm').addEventListener('submit', function(event) {
+      event.preventDefault(); // Formani qayta yuklashni oldini olamiz
+      
+      // Xabarni ko'rsatamiz
+      var successMessage = document.getElementById('successMessage');
+      successMessage.style.display = 'block';
+      
+      // Formani aslida serverga yuborish
+      setTimeout(() => {
+        successMessage.style.display = 'none'; // Xabarni yashiramiz
+        this.submit(); // Formani yuboramiz
+      }, 2000); // 2 soniyadan so'ng yuboriladi
+    });
+  </script>
 
 </body>
 </html>

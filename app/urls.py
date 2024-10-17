@@ -3,6 +3,6 @@ from . import views
 
 
 urlpatterns = [
-    path('', views.submit_form, name='home'),
+    path('', views.submit_form, name='bosh'),
     path('main/', views.index, name='home')
 ]
