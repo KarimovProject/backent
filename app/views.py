@@ -2,6 +2,9 @@ from django.shortcuts import render, redirect
 from .forms import SubmissionForm
 from .models import Submission
 from django.core.files.storage import FileSystemStorage
+from django.http import HttpResponse,FileResponse,HttpRequest
+from django.conf import settings
+from config.settings import os
 
 
 # def index(request):
@@ -13,7 +16,7 @@ def submit_form(request):
         tel = request.POST['tel']
         city = request.POST['city']
         messagek = request.POST['messagek']
-
+        
         # Handle file upload
         if 'file' in request.FILES:
             file = request.FILES['file']
@@ -29,21 +32,31 @@ def submit_form(request):
 
     return render(request, 'index.html')
 
+def download_file(request, filename):
+    file_path = os.path.join(settings.MEDIA_ROOT+"/files", filename)
+    print(file_path)
+    print(type(settings.MEDIA_ROOT))
+    if os.path.exists(file_path):
+        response = FileResponse(open(file_path,  'rb'))
+        response['Content-Disposition'] = 'attachment; filename="%s"' % filename
+        return response
+    else:
+        # Обработка ошибки, если файл не найден
+        return HttpResponse("File not found")
+
+
 def index(request):
     # PDF fayl yo'li
     malumot = Submission.objects.all()
     l = list(malumot) 
-    record = {
-        'pdf_file_path': 'files/Fozilov_Asadbek.docx'
-    }
+    
     
     # Submission modelidan barcha ma'lumotlarni olish
      # Ma'lumotlarni list ga aylantirish
     
     # Kontekstni to'g'ri uzatish
     return render(request, 'main.html', context={
-        'l': l,
-        'record': record  # 'record' ni kontekstga qo'shish
+        'l': l
     })
 
     
