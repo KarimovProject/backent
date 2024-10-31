@@ -264,9 +264,14 @@
                     <strong>Izoh:</strong> {{ i.messagek }}<br>
                 </p>
                 {% if i.file %}
-                    <a href="{{i.file}}"  class="btn btn-primary">Faylni ko'rish</a>
+                    <a href="{{i.file}}" target="_blank" class="btn btn-primary">Faylni ko'rish</a>
+                    
                 {% endif %}
-                <a href="{{ i.file }}" class="btn btn-primary">Arizani ko'rish</a>
+                {% for j in d %}
+                {% if i.id == j.id  %}
+                    <a href="{{ j.file }}" target="_blank" class="btn btn-primary">Arizani ko'rish</a>
+                {% endif %}
+                {% endfor %}
             </div>
         </div>
     </div>
