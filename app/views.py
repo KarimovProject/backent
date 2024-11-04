@@ -7,7 +7,7 @@ from django.conf import settings
 from config.settings import os
 from pdfrw import PdfReader, PdfWriter, PageMerge
 from reportlab.pdfgen import canvas
-from reportlab.lib.pagesizes import letter
+from reportlab.lib.pagesizes import letter, A3
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfbase import pdfmetrics
 from datetime import datetime
@@ -43,23 +43,24 @@ def submit_form(request):
         print(output_path)
         # Yangi PDF yaratamiz va foydalanuvchi ma'lumotlarini unga qo'shamiz
         packet_path = os.path.join(settings.MEDIA_ROOT, 'packet.pdf')
-        packet = canvas.Canvas(packet_path, pagesize=letter)
+        packet = canvas.Canvas(packet_path, pagesize=A3)
         
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         
         # Shriftni sozlash
-        pdfmetrics.registerFont(TTFont('Geologica', os.path.join(settings.MEDIA_ROOT, "Geologica/static/Geologica_Auto-Black.ttf")))
-        packet.setFont("Geologica", 12)
+        pdfmetrics.registerFont(TTFont('Times New Roman', os.path.join(settings.MEDIA_ROOT, "Times New Roman/times new roman.ttf")))
+        packet.setFont("Times New Roman", 12)
 
         # Foydalanuvchi ma'lumotlarini jadvalga mos joyga qo'shish
-        packet.drawString(100, 770, f"id:{id}")
-        packet.drawString(100, 750, f"Ismingiz: {fname}")
-        packet.drawString(100, 730, f"Familiyangiz: {lname}")
-        packet.drawString(100, 710, f"Telefon raqamingiz: {tel}")
-        packet.drawString(100, 690, f"Shahar/tuman: {city}")
-        packet.drawString(100, 670, f"Huquq buzilish holati:")
-        packet.drawString(100, 650, messagek)
-        packet.drawString(100, 630, f"Sana: {current_time}")
+        
+        packet.drawString(250, 495, f"id:{id}")
+        packet.drawString(250, 479, f"Sana: {current_time}")
+        packet.drawString(250, 463, f"Ismingiz: {fname}")
+        packet.drawString(250, 447, f"Familiyangiz: {lname}")
+        packet.drawString(250, 431, f"Telefon raqamingiz: {tel}")
+        packet.drawString(250, 415, f"Shahar/tuman: {city}")
+        packet.drawString(250, 399, f"Huquq buzilish holati:")
+        packet.drawString(250, 383, messagek)
 
         # Yangi PDF sahifasini tugatish
         packet.save()
