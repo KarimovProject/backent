@@ -12,6 +12,7 @@ from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfbase import pdfmetrics
 from datetime import datetime
 import re
+import textwrap
 
 # def index(request):
 def submit_form(request):
@@ -53,14 +54,21 @@ def submit_form(request):
 
         # Foydalanuvchi ma'lumotlarini jadvalga mos joyga qo'shish
         
-        packet.drawString(250, 495, f"id:{id}")
-        packet.drawString(250, 479, f"Sana: {current_time}")
-        packet.drawString(250, 463, f"Ismingiz: {fname}")
-        packet.drawString(250, 447, f"Familiyangiz: {lname}")
-        packet.drawString(250, 431, f"Telefon raqamingiz: {tel}")
-        packet.drawString(250, 415, f"Shahar/tuman: {city}")
-        packet.drawString(250, 399, f"Huquq buzilish holati:")
-        packet.drawString(250, 383, messagek)
+        packet.drawString(250, 495, f"{id}")
+        packet.drawString(250, 479, f"{current_time}")
+        packet.drawString(250, 463, f"{fname}")
+        packet.drawString(250, 447, f"{lname}")
+        packet.drawString(250, 431, f"{tel}")
+        packet.drawString(250, 415, f"{city}")
+        # `messagek` matnini qatorlarga ajratish
+        max_line_width = 40  # Har bir qator uchun maksimal belgilar soni (bu sahifa kengligiga bog‘liq holda sozlanishi mumkin)
+        wrapped_text = textwrap.wrap(messagek, width=max_line_width)
+        start_y = 399  # Boshlang‘ich y-koordinatasi
+        line_height = 14  # Qatorlar orasidagi masofa
+
+        for line in wrapped_text:
+            packet.drawString(250, start_y, line)
+            start_y -= line_height  # Har bir yangi qator uchun y-koordinatani kamaytirish
 
         # Yangi PDF sahifasini tugatish
         packet.save()
@@ -87,8 +95,6 @@ def submit_form(request):
 
 def download_file(request, filename):
     file_path = os.path.join(settings.MEDIA_ROOT+"/files", filename)
-    print(file_path)
-    print(type(settings.MEDIA_ROOT))
     if os.path.exists(file_path):
         response = FileResponse(open(file_path,  'rb'))
         response['Content-Disposition'] = 'attachment; filename="%s"' % filename
@@ -114,11 +120,6 @@ def index(request):
             d.append({"id": int(t[i]), "file": file_name})
             i += 1
             
-    print(d)
-    print(l[15].id)
-    # Submission modelidan barcha ma'lumotlarni olish
-     # Ma'lumotlarni list ga aylantirish
-    
     # Kontekstni to'g'ri uzatish
     return render(request, 'main.html', context={
         'l': l,
@@ -128,8 +129,6 @@ def index(request):
 
 def download_file_ariza(request, filename):
     file_path = os.path.join(settings.MEDIA_ROOT, filename)
-    print(file_path)
-    print(type(settings.MEDIA_ROOT))
     if os.path.exists(file_path):
         response = FileResponse(open(file_path,  'rb'))
         response['Content-Disposition'] = 'attachment; filename="%s"' % filename
