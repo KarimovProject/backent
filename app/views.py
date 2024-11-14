@@ -1,18 +1,18 @@
-from django.shortcuts import render, redirect
-from .forms import SubmissionForm
+from django.shortcuts import render
 from .models import Submission
-from django.core.files.storage import FileSystemStorage
 from django.http import HttpResponse,FileResponse,HttpRequest
 from django.conf import settings
 from config.settings import os
 from pdfrw import PdfReader, PdfWriter, PageMerge
 from reportlab.pdfgen import canvas
-from reportlab.lib.pagesizes import letter, A3
+from reportlab.lib.pagesizes import A3
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfbase import pdfmetrics
 from datetime import datetime
 import re
 import textwrap
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 
 # def index(request):
 def submit_form(request):
@@ -23,7 +23,7 @@ def submit_form(request):
         tel = request.POST['tel']
         city = request.POST['city']
         messagek = request.POST['messagek']
-        print(fname, lname, tel, city, messagek)
+        mname = request.POST['mname']
         
         if 'file' in request.FILES:
             file = request.FILES['file']
@@ -31,6 +31,7 @@ def submit_form(request):
             Submission.objects.create(
                 fname=fname,
                 lname=lname,
+                mname=mname,
                 tel=tel,
                 city=city,
                 messagek=messagek,
@@ -58,6 +59,7 @@ def submit_form(request):
         packet.drawString(250, 479, f"{current_time}")
         packet.drawString(250, 463, f"{fname}")
         packet.drawString(250, 447, f"{lname}")
+        packet.drawString(250, 431, f"{mname}")
         packet.drawString(250, 431, f"{tel}")
         packet.drawString(250, 415, f"{city}")
         # `messagek` matnini qatorlarga ajratish
@@ -92,6 +94,16 @@ def submit_form(request):
         
 
     return render(request, 'index.html')
+def mark_reviewed(request):
+    if request.method == "POST" and request.POST.get("mark_reviewed") == "true":
+        ariza_id = request.POST.get("id")
+        try:
+            ariza = Submission.objects.get(id=ariza_id)
+            ariza.reviewed = True
+            ariza.save()
+            return JsonResponse({"status": "success", "message": "Ariza tekshirilgan deb belgilandi."})
+        except Submission.DoesNotExist:
+            return JsonResponse({"status": "error", "message": "Ariza topilmadi."})
 
 def download_file(request, filename):
     file_path = os.path.join(settings.MEDIA_ROOT+"/files", filename)
